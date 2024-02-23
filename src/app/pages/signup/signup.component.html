@@ -1,1 +1,17 @@
-<p>signup works!</p>
+<div class="rmn-signup-container flex align-middle justify-center h-full">
+    <div class="rmn-signup-box box-border  p-4 border-2 h-96 w-96 absolute top-1/2 transform -translate-y-1/2">
+        <h1>Sign Up</h1>
+        <div class="rmn-signup-body">
+            <div class="text-sm font-medium text-left p-2 text-black">First Name</div>
+            <input type="text" placeholder="John" [(ngModel)]="firstName">
+            <div class="text-sm font-medium text-left p-2 text-black">Last Name</div>
+            <input type="text" placeholder="Doe" [(ngModel)]="lastName">
+            <div class="text-sm font-medium text-left p-2 text-black">Email</div>
+            <input type="text" placeholder="johndoe@gmail.com" [(ngModel)]="email">
+            <div class="text-sm font-medium text-left p-2 text-black">Password</div>
+            <input type="text" placeholder="1234" [(ngModel)]="password">
+            <button (click)="signUpClicked()">Sign Up</button>
+            <p>Already have an account? </p>
+        </div>
+    </div>
+</div>
