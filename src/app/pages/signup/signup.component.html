@@ -1,17 +1,41 @@
-<div class="rmn-signup-container flex align-middle justify-center h-full">
-    <div class="rmn-signup-box box-border  p-4 border-2 h-96 w-96 absolute top-1/2 transform -translate-y-1/2">
-        <h1>Sign Up</h1>
-        <div class="rmn-signup-body">
-            <div class="text-sm font-medium text-left p-2 text-black">First Name</div>
-            <input type="text" placeholder="John" [(ngModel)]="firstName">
-            <div class="text-sm font-medium text-left p-2 text-black">Last Name</div>
-            <input type="text" placeholder="Doe" [(ngModel)]="lastName">
-            <div class="text-sm font-medium text-left p-2 text-black">Email</div>
-            <input type="text" placeholder="johndoe@gmail.com" [(ngModel)]="email">
-            <div class="text-sm font-medium text-left p-2 text-black">Password</div>
-            <input type="text" placeholder="1234" [(ngModel)]="password">
-            <button (click)="signUpClicked()">Sign Up</button>
-            <p>Already have an account? </p>
+<!-- component -->
+<div class="bg-[#F5F5F5] min-h-screen flex flex-col">
+    <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+        <div class="bg-white px-6 py-8 border-2 rounded shadow-md text-black w-full">
+            <h1 class="mb-8 text-3xl text-center">Sign up</h1>
+            <input type="text" class="block border border-grey-light w-full p-3 rounded mb-4" name="firstName"
+                placeholder="Full Name" [(ngModel)]="firstName" />
+
+            <input type="text" class="block border border-grey-light w-full p-3 rounded mb-4" name="lastName"
+                placeholder="Email" [(ngModel)]="lastName" />
+            <input type="text" class="block border border-grey-light w-full p-3 rounded mb-4" name="email"
+                placeholder="Email" [(ngModel)]="email" />
+
+
+            <input type="password" class="block border border-grey-light w-full p-3 rounded mb-4" name="password"
+                placeholder="Password" [(ngModel)]="password" />
+
+
+            <button type="submit" (click)="signUpClicked()"
+                class="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-dark focus:outline-none my-1">Sign
+                Up</button>
+
+            <div class="text-center text-sm text-grey-dark mt-4">
+                By signing up, you agree to the
+                <a class="no-underline border-b border-grey-dark text-grey-dark" href="#">
+                    Terms of Service
+                </a> and
+                <a class="no-underline border-b border-grey-dark text-grey-dark" href="#">
+                    Privacy Policy
+                </a>
+            </div>
+        </div>
+
+        <div class="text-grey-dark mt-6">
+            Already have an account?
+            <a class="no-underline border-b border-blue text-blue" [routerLink]="['/app-signin']">
+                Sign In
+            </a>.
         </div>
     </div>
 </div>

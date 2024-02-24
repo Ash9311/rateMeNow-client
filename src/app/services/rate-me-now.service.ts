@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http"
+import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -14,5 +14,9 @@ export class RateMeNowService {
 
   signIn(username: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/user/signin`, { username, password })
+  }
+
+  getBulkUsers(headers?: HttpHeaders): Observable<any> {
+    return this.http.get(`${this.apiUrl}/user/bulk`, { headers })
   }
 }

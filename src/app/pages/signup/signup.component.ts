@@ -1,7 +1,8 @@
+import { RootScopeService } from './../../services/root-scope.service';
 import { RateMeNowService } from './../../services/rate-me-now.service';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +16,7 @@ export class SignupComponent implements OnInit {
   password: string = "";
 
 
-  constructor(private rateMeNowService: RateMeNowService) {
+  constructor(private rateMeNowService: RateMeNowService, private router: Router, private rootScopeService: RootScopeService) {
 
   }
 
@@ -23,10 +24,11 @@ export class SignupComponent implements OnInit {
   }
 
   signUpClicked() {
-    //let SignUppayload = { firstName: this.firstName, lastName: this.lastName, username: this.email, password: this.password }
     this.rateMeNowService.signUp(this.firstName, this.lastName, this.email, this.password).subscribe(response => {
       console.log(response);
-
+      localStorage.setItem("token", response.token);
+      this.rootScopeService.isUserLoggedIn = true;
+      this.router.navigate(['/', 'app-dashboard'])
     })
   }
 

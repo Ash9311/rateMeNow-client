@@ -4,6 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class RootScopeService {
-
+  isUserLoggedIn: boolean = false;
   constructor() { }
 }

@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  isprofileButtonClicked: boolean = false;
   constructor() { }
   user: string = "";
   ngOnInit(): void {
+  }
+
+  profilButtonClicked() {
+    this.isprofileButtonClicked = !this.isprofileButtonClicked;
   }
 
 }
