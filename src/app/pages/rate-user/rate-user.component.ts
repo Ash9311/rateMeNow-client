@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-rate-user',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RateUserComponent implements OnInit {
 
+  @Input() userDetails: any;
+  @Output() backbuttonClicked = new EventEmitter<any>();
+
   constructor() { }
 
   ngOnInit(): void {
+    
+
+  }
+
+  backClicked() {
+    this.backbuttonClicked.emit();
   }
 
 }
