@@ -16,7 +16,15 @@ export class RateMeNowService {
     return this.http.post(`${this.apiUrl}/user/signin`, { username, password })
   }
 
-  getBulkUsers(headers?: HttpHeaders): Observable<any> {
-    return this.http.get(`${this.apiUrl}/user/bulk`, { headers })
+  getBulkUsers(headers?: HttpHeaders, filter?: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/user/bulk?filter=${filter}`, { headers })
+  }
+
+  submitRating(userId: string, ratings: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/account/submitRating`, { userId, ratings });
+  }
+
+  getAverageRating(userId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/average/${userId}`)
   }
 }

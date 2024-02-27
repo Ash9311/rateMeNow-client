@@ -16,6 +16,7 @@ export class SigninComponent implements OnInit {
   constructor(private rateMeNowService: RateMeNowService, private router: Router, private rootScopeService: RootScopeService) { }
 
   ngOnInit(): void {
+    this.rootScopeService.isUserLoggedIn = false;
   }
 
   signInClicked() {

@@ -21,6 +21,7 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.rootScopeService.isUserLoggedIn=false;
   }
 
   signUpClicked() {
