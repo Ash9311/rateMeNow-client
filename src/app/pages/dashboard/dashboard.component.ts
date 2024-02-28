@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   constructor(private rateMeNowService: RateMeNowService, private router: Router, private rootScopeService: RootScopeService) { }
 
   ngOnInit(): void {
+    this.rootScopeService.isUserLoggedIn = true;
     this.getAllUsers();
   }
 
