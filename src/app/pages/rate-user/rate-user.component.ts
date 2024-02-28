@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { RateMeNowService } from 'src/app/services/rate-me-now.service';
 import { RootScopeService } from 'src/app/services/root-scope.service';
+import * as _ from 'lodash';
 @Component({
   selector: 'app-rate-user',
   templateUrl: './rate-user.component.html',
@@ -13,7 +14,7 @@ export class RateUserComponent implements OnInit {
 
   currentRating: any = {
     "Kindness": 0,
-    "trustWorthy": 0,
+    "TrustWorthy": 0,
     "ProblemSolvingSkills": 0,
     "Professionalism": 0,
     "Adaptability": 0,
@@ -22,6 +23,10 @@ export class RateUserComponent implements OnInit {
     "SenseOfHumor": 0
   };
   ratings: any;
+  userRatingDetails: any;
+  OverallRating: number = 0;
+  avgOverallRating: number = 0;
+  totalRaters: number = 0;
   @Input() userDetails: any;
   @Output() backbuttonClicked = new EventEmitter<any>();
 
@@ -37,7 +42,39 @@ export class RateUserComponent implements OnInit {
   constructor(private rateMeNowService: RateMeNowService, private router: Router, private rootScopeService: RootScopeService) { }
 
   ngOnInit(): void {
+    this.fetchUserRatingDetails();
+  }
 
+  fetchUserRatingDetails() {
+    this.rateMeNowService.getUserRatingDetails(this.userDetails._id).subscribe(response => {
+      this.userRatingDetails = response?.account?.rating;
+      this.getAvgCriteria();
+    })
+  }
+
+  computeOverallRating() {
+    let count = 0;
+    let sum = 0;
+
+    for (const key in this.currentRating) {
+      if (this.currentRating[key] > 0) {
+        count++;
+        sum += this.currentRating[key];
+      }
+    }
+    this.OverallRating = sum / count;
+
+  }
+
+  getAvgCriteria() {
+    let overallRatingsList = _.cloneDeep(this.userRatingDetails);
+    let sumOverallRatings = 0;
+    _.forEach(overallRatingsList, x =>
+      sumOverallRatings += x.OverallRating
+    )
+    this.totalRaters = overallRatingsList.length;
+    this.avgOverallRating = sumOverallRatings / this.totalRaters;
+    console.log(this.avgOverallRating);
 
   }
 
@@ -59,11 +96,20 @@ export class RateUserComponent implements OnInit {
   }
 
   submitRating() {
+
+    this.computeOverallRating();
+    let payload = {
+      ...this.currentRating,
+      OverallRating: this.OverallRating,
+      RatedBy: this.rootScopeService.loggedInUser.userId
+    };
     this.rateMeNowService.submitRating(this.userDetails.
-      _id, this.currentRating).subscribe(response => {
-        console.log(response);
+      _id, payload).subscribe(response => {
+        alert("rating submitted successfully")
+        this.fetchUserRatingDetails();
 
       });
+
   }
 
 

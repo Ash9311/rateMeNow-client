@@ -24,6 +24,7 @@ export class SigninComponent implements OnInit {
       console.log(response);
       localStorage.setItem("token", response.token);
       this.rootScopeService.isUserLoggedIn = true;
+      this.rootScopeService.loggedInUser = response?.userDetails;
       this.router.navigate(['/', 'app-dashboard'])
     })
   }

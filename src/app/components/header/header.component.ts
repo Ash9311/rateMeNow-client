@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.documentClickHandler = this.handleDocumentClick.bind(this);
     document.addEventListener('click', this.documentClickHandler);
+    // this.user = this.rootScopeService.loggedInUser.userDetails.firstName;
   }
 
   ngOnDestroy(): void {

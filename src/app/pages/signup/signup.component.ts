@@ -28,7 +28,8 @@ export class SignupComponent implements OnInit {
     this.rateMeNowService.signUp(this.firstName, this.lastName, this.email, this.password).subscribe(response => {
       console.log(response);
       localStorage.setItem("token", response.token);
-      this.rootScopeService.isUserLoggedIn = true;
+     
+      this.rootScopeService.loggedInUser=response?.userDetails;
       this.router.navigate(['/', 'app-dashboard'])
     })
   }

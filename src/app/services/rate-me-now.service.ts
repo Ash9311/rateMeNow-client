@@ -24,7 +24,7 @@ export class RateMeNowService {
     return this.http.post(`${this.apiUrl}/account/submitRating`, { userId, ratings });
   }
 
-  getAverageRating(userId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/average/${userId}`)
+  getUserRatingDetails(userId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/account/userDetails?userId=${userId}`)
   }
 }

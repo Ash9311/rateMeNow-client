@@ -14,3 +14,11 @@
     color: #ffcd07;
     /* Hover and active star color */
 }
+
+.active {
+    color: #ffcd07;
+  }
+
+  .hovered {
+    color: #ffcd07;
+  }
