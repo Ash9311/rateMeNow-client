@@ -20,13 +20,20 @@ export class SigninComponent implements OnInit {
   }
 
   signInClicked() {
+
     this.rateMeNowService.signIn(this.email, this.password).subscribe(response => {
       console.log(response);
       localStorage.setItem("token", response.token);
       this.rootScopeService.isUserLoggedIn = true;
       this.rootScopeService.loggedInUser = response?.userDetails;
       this.router.navigate(['/', 'app-dashboard'])
-    })
+    },
+      error => {
+        alert('Invalid credentials');
+      }
+    )
   }
+
+
 
 }

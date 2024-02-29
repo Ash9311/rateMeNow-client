@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { RateMeNowService } from 'src/app/services/rate-me-now.service';
 import { RootScopeService } from 'src/app/services/root-scope.service';
 import * as _ from 'lodash';
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-rate-user',
   templateUrl: './rate-user.component.html',
@@ -22,10 +23,33 @@ export class RateUserComponent implements OnInit {
     "CommunicationSkills": 0,
     "SenseOfHumor": 0
   };
+
+  currentRatingPtg: any = {
+    "Kindness": 0,
+    "TrustWorthy": 0,
+    "ProblemSolvingSkills": 0,
+    "Professionalism": 0,
+    "Adaptability": 0,
+    "Teamwork": 0,
+    "CommunicationSkills": 0,
+    "SenseOfHumor": 0
+  };
+
+  OverallKindess: number = 10;
+  OverallTrustWorthy: number = 0;
+  OverallProblemSolvingSkills: number = 0;
+  OverallProfessionalism: number = 0;
+  OverallAdaptability: number = 0;
+  OverallTeamwork: number = 0;
+  OverallCommunicationSkills: number = 0;
+  OverallSenseOfHumor: number = 0;
+  isFirstLoad = false;
   ratings: any;
   userRatingDetails: any;
   OverallRating: number = 0;
   avgOverallRating: number = 0;
+  avgOverallRatingstar: number = 0;
+
   totalRaters: number = 0;
   @Input() userDetails: any;
   @Output() backbuttonClicked = new EventEmitter<any>();
@@ -39,16 +63,33 @@ export class RateUserComponent implements OnInit {
     "Communication skills",
     "Sense of humor"];
 
+  criteriaAvg: any = {
+    "Kindness": 0,
+    "TrustWorthy": 0,
+    "ProblemSolvingSkills": 0,
+    "Professionalism": 0,
+    "Adaptability": 0,
+    "Teamwork": 0,
+    "CommunicationSkills": 0,
+    "SenseOfHumor": 0
+  };
+
   constructor(private rateMeNowService: RateMeNowService, private router: Router, private rootScopeService: RootScopeService) { }
 
   ngOnInit(): void {
+    this.isFirstLoad = true;
     this.fetchUserRatingDetails();
+
   }
 
   fetchUserRatingDetails() {
-    this.rateMeNowService.getUserRatingDetails(this.userDetails._id).subscribe(response => {
+    const authToken = localStorage.getItem("token");
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
+    this.rateMeNowService.getUserRatingDetails(this.userDetails._id, headers).subscribe(response => {
       this.userRatingDetails = response?.account?.rating;
       this.getAvgCriteria();
+      this.computeCriteriaMetrics();
+      this.isFirstLoad = false;
     })
   }
 
@@ -66,6 +107,41 @@ export class RateUserComponent implements OnInit {
 
   }
 
+  computeCriteriaMetrics() {
+    let overallRatingsList = _.cloneDeep(this.userRatingDetails);
+    let criteriaAvg: any = {
+      "Kindness": 0,
+      "TrustWorthy": 0,
+      "ProblemSolvingSkills": 0,
+      "Professionalism": 0,
+      "Adaptability": 0,
+      "Teamwork": 0,
+      "CommunicationSkills": 0,
+      "SenseOfHumor": 0
+    };
+    for (let x of overallRatingsList) {
+      criteriaAvg.Kindness += x.Kindness;
+      criteriaAvg.TrustWorthy += x.TrustWorthy;
+      criteriaAvg.ProblemSolvingSkills += x.ProblemSolvingSkills;
+      criteriaAvg.Professionalism += x.Professionalism;
+      criteriaAvg.Adaptability += x.Adaptability;
+      criteriaAvg.Teamwork += x.Teamwork;
+      criteriaAvg.CommunicationSkills += x.CommunicationSkills;
+      criteriaAvg.SenseOfHumor += x.SenseOfHumor;
+
+    }
+    _.forEach(criteriaAvg, (value, key) =>
+      this.currentRatingPtg[key] = ((value / this.totalRaters) * 20).toFixed(0)
+    )
+    // this.criteriaAvg = _.map(this.criteriaAvg, (value, key) => {  problem here is map will split out each indexes
+    //   return {
+    //     [key]: value / this.totalRaters
+    //   };
+    // });
+
+
+  }
+
   getAvgCriteria() {
     let overallRatingsList = _.cloneDeep(this.userRatingDetails);
     let sumOverallRatings = 0;
@@ -74,8 +150,8 @@ export class RateUserComponent implements OnInit {
     )
     this.totalRaters = overallRatingsList.length;
     this.avgOverallRating = sumOverallRatings / this.totalRaters;
-    console.log(this.avgOverallRating);
-
+    this.avgOverallRatingstar = Math.round(this.avgOverallRating)
+    this.avgOverallRating = +this.avgOverallRating.toFixed(2);
   }
 
   getCurrentRatingKeys() {
@@ -103,14 +179,20 @@ export class RateUserComponent implements OnInit {
       OverallRating: this.OverallRating,
       RatedBy: this.rootScopeService.loggedInUser.userId
     };
+    const authToken = localStorage.getItem("token");
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
     this.rateMeNowService.submitRating(this.userDetails.
-      _id, payload).subscribe(response => {
+      _id, payload, headers).subscribe(response => {
         alert("rating submitted successfully")
         this.fetchUserRatingDetails();
 
       });
 
   }
+  ngOnDestroy() {
+    this.isFirstLoad = false;
+  }
+
 
 
 }

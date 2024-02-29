@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 })
 export class RateMeNowService {
   private apiUrl = 'https://rate-me-now-server.vercel.app/api/v1'
+ // private apiUrl = 'http://localhost:4000/api/v1'
   constructor(private http: HttpClient) { }
 
   signUp(firstName: string, lastName: string, username: string, password: string): Observable<any> {
@@ -20,11 +21,11 @@ export class RateMeNowService {
     return this.http.get(`${this.apiUrl}/user/bulk?filter=${filter}`, { headers })
   }
 
-  submitRating(userId: string, ratings: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/account/submitRating`, { userId, ratings });
+  submitRating(userId: string, ratings: any, headers?: HttpHeaders): Observable<any> {
+    return this.http.post(`${this.apiUrl}/account/submitRating`, { userId, ratings, headers });
   }
 
-  getUserRatingDetails(userId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/account/userDetails?userId=${userId}`)
+  getUserRatingDetails(userId: string, headers?: HttpHeaders): Observable<any> {
+    return this.http.get(`${this.apiUrl}/account/userDetails?userId=${userId}`, { headers })
   }
 }

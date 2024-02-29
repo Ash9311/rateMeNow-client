@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   filter = "";
   isRateclicked: boolean = false;
   userDetails: any;
-  constructor(private rateMeNowService: RateMeNowService, private router: Router, private rootScopeService: RootScopeService) { }
+  constructor(private rateMeNowService: RateMeNowService, private router: Router, public rootScopeService: RootScopeService) { }
 
   ngOnInit(): void {
     this.rootScopeService.isUserLoggedIn = true;

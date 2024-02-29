@@ -1,33 +1,135 @@
-<div class="bg-[#F5F5F5] min-h-screen flex flex-col">
-    <button class="fa fa-arrow-left flex p-4 align-top justify-start" (click)="backClicked()"></button>
-    <div class="flex justify-center mb-5">
-        <div>Overall Rating: {{avgOverallRating||0}} ({{totalRaters||0}})</div>
-        <div class="flex pt-1 ml-2">
-            <div class="flex" *ngFor="let star of [1,2,3,4,5]; let i = index">
-                <i class="fa fa-star" [ngClass]="{'active': currentRating >= i + 1}">
-                </i>
-            </div>
-        </div>
-    </div>
-    <div class="container max-w-sm mx-auto  flex flex-col items-center justify-center px-2">
-
-        <div class="bg-white px-6 py-8 border-2 rounded shadow-md text-black w-max">
-            <h1 class="mb-8 text-3xl text-center min-w-10">{{userDetails.firstName}} {{userDetails.lastName}}</h1>
-            <div class="star-rating flex-col">
-                <div class="flex justify-between" *ngFor="let criterion of getCurrentRatingKeys();let ind=index">
-                    <div class="text-base flex items-center">{{ratingCriteria[ind]}}:</div>
-                    <div class="flex pt-1.5 ml-5">
-                        <div class="flex p-0.5" *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
-                            <i class="fa fa-star" (click)="setRating(criterion, i + 1)"
-                                [ngClass]="{'active': getRating(criterion) >= i+1 }"></i>
-                        </div>
+<div class="bg-[#F5F5F5]">
+    <button class="fa fa-arrow-left flex p-4 align-top justify-start " (click)="backClicked()"></button>
+    <div class="flex  flex-col lg:flex-row items-center justify-around bg-[#F5F5F5] min-h-screen">
+        <div class="sm:min-h-[70vh] md:min-h-screen flex flex-col">
+            <div class="flex justify-center mb-5">
+                <div>Overall Rating: {{avgOverallRating||0}} ({{totalRaters||0}})</div>
+                <div class="flex pt-1 ml-2">
+                    <div class="flex" *ngFor="let star of [1,2,3,4,5]; let i = index">
+                        <i class="fa fa-star" [ngClass]="{'active': avgOverallRatingstar >= i + 1}">
+                        </i>
                     </div>
                 </div>
             </div>
-        </div>
-        <button type="submit"
-            class="w-40 mt-4 text-center py-3 rounded bg-green-500 text-white hover:bg-green-dark focus:outline-none my-1"
-            (click)="submitRating()">submit rating</button>
-    </div>
+            <div class="container max-w-sm mx-auto  flex flex-col items-center justify-center px-2">
 
+                <div class="bg-white px-6 py-8 border-2 rounded shadow-md text-black w-max">
+                    <h1 class="mb-8 text-3xl text-center min-w-10">{{userDetails.firstName}} {{userDetails.lastName}}
+                    </h1>
+                    <div class="star-rating flex-col">
+                        <div class="flex justify-between"
+                            *ngFor="let criterion of getCurrentRatingKeys();let ind=index">
+                            <div class="text-base flex items-center">{{ratingCriteria[ind]}}:</div>
+                            <div class="flex pt-1.5 ml-5">
+                                <div class="flex p-0.5" *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+                                    <i class="fa fa-star" (click)="setRating(criterion, i + 1)"
+                                        [ngClass]="{'active': getRating(criterion) >= i+1 }"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit"
+                    class="w-40 mt-4 text-center py-3 rounded bg-green-500 text-white hover:bg-green-dark focus:outline-none my-1"
+                    (click)="submitRating()">submit rating</button>
+            </div>
+
+        </div>
+
+
+
+        <div class="sm:min-h-[50vh] md:min-h-screen flex flex-col">
+            <p style="margin-top: 13%;"
+                class="flex justify-center text-sm font-medium text-gray-500 dark:text-gray-400">{{totalRaters||0}}
+                global ratings</p>
+            <div class="flex flex-col sm:min-w-[24.5rem] md:min-w-[37.5rem]">
+                <div class="flex items-center mt-4 justify-between">
+                    <a href="#"
+                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Kindness</a>
+                    <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                        <div class="h-5 bg-yellow-300 rounded" [style.width.%]="currentRatingPtg?.Kindness||0"></div>
+                    </div>
+                    <span
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.Kindness||0}}%</span>
+                </div>
+                <div class="flex items-center mt-4">
+                    <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Trust
+                        worthy</a>
+                    <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                        <div class="h-5 bg-yellow-300 rounded"
+                            [ngStyle]="{ 'width.%': currentRatingPtg?.TrustWorthy||0 }">
+                        </div>
+                    </div>
+                    <span
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.TrustWorthy||0}}%</span>
+                </div>
+                <div class="flex items-center mt-4">
+                    <a href="#"
+                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Problem
+                        solvings
+                        skills</a>
+                    <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                        <div class="h-5 bg-yellow-300 rounded"
+                            [style.width.%]="currentRatingPtg?.ProblemSolvingSkills||0">
+                        </div>
+                    </div>
+                    <span
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.ProblemSolvingSkills||0}}%</span>
+                </div>
+                <div class="flex items-center mt-4">
+                    <a href="#"
+                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Professionalism</a>
+                    <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                        <div class="h-5 bg-yellow-300 rounded" [style.width.%]="currentRatingPtg?.Professionalism||0">
+                        </div>
+                    </div>
+                    <span
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.Professionalism||0}}%</span>
+                </div>
+                <div class="flex items-center mt-4">
+                    <a href="#"
+                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Adaptability</a>
+                    <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                        <div class="h-5 bg-yellow-300 rounded" [style.width.%]="currentRatingPtg?.Adaptability||0">
+                        </div>
+                    </div>
+                    <span
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.Adaptability||0}}%</span>
+                </div>
+                <div class="flex items-center mt-4">
+                    <a href="#"
+                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Teamwork</a>
+                    <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                        <div class="h-5 bg-yellow-300 rounded" [style.width.%]="currentRatingPtg?.Teamwork||0"></div>
+                    </div>
+                    <span
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.Teamwork||0}}%</span>
+                </div>
+                <div class="flex items-center mt-4">
+                    <a href="#"
+                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Communication
+                        skills</a>
+                    <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                        <div class="h-5 bg-yellow-300 rounded"
+                            [style.width.%]="currentRatingPtg?.CommunicationSkills||0">
+                        </div>
+                    </div>
+                    <span
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.CommunicationSkills||0}}%</span>
+                </div>
+                <div class="flex items-center mt-4">
+                    <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Sense
+                        of
+                        humor</a>
+                    <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                        <div class="h-5 bg-yellow-300 rounded" [style.width.%]="currentRatingPtg?.SenseOfHumor||0">
+                        </div>
+                    </div>
+                    <span
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.SenseOfHumor||0}}%</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
