@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
 
       console.log(this.accountDetails);
 
-      this.users = this.users.map((user: any) => {
+      this.users = this.users?.map((user: any) => {
         const account = this.accountDetails.find((accountDetail: any) => accountDetail._id === user._id);
         if (account) {
           return {
