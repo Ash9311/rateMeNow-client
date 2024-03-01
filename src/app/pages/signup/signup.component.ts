@@ -32,7 +32,10 @@ export class SignupComponent implements OnInit {
 
       this.rootScopeService.loggedInUser = response?.userDetails;
       this.router.navigate(['/', 'app-dashboard'])
-    })
+    },
+      error => {
+        this.rootScopeService.isLoading = false;
+      })
   }
 
 }

@@ -185,7 +185,10 @@ export class RateUserComponent implements OnInit {
         alert("rating submitted successfully")
         this.fetchUserRatingDetails();
 
-      });
+      },
+        error => {
+          this.rootScopeService.isLoading = false;
+        });
 
   }
   ngOnDestroy() {

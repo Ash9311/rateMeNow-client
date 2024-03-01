@@ -33,6 +33,7 @@ export class SigninComponent implements OnInit {
 
       error => {
         alert('Invalid credentials');
+        this.rootScopeService.isLoading = false;
       },
 
     )
