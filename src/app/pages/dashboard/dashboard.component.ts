@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.rootScopeService.isUserLoggedIn = true;
     this.getAllUsers();
-    this.getAllAccountDetails();
+
   }
 
   search() {
@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
     this.rateMeNowService.getBulkUsers(headers, this.filter.toLowerCase()).subscribe(response => {
       this.users = response?.users;
+      this.getAllAccountDetails();
     });
   }
 
@@ -57,7 +58,6 @@ export class DashboardComponent implements OnInit {
         ratedUsers: account.rating.length
       }));
 
-      console.log(this.accountDetails);
 
       this.users = this.users?.map((user: any) => {
         const account = this.accountDetails.find((accountDetail: any) => accountDetail._id === user._id);
@@ -71,8 +71,10 @@ export class DashboardComponent implements OnInit {
           return user;
         }
       });
-      console.log(this.users);
+
     });
+
+
   }
 
 }
