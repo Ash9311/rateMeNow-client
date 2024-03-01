@@ -82,12 +82,17 @@ export class RateUserComponent implements OnInit {
   fetchUserRatingDetails() {
     const authToken = localStorage.getItem("token");
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
+    this.rootScopeService.isLoading = true;
     this.rateMeNowService.getUserRatingDetails(this.userDetails._id, headers).subscribe(response => {
       this.userRatingDetails = response?.account[0]?.rating;
       this.getAvgCriteria();
       this.computeCriteriaMetrics();
+      this.rootScopeService.isLoading = false;
 
-    })
+    },
+      error => {
+        this.rootScopeService.isLoading = false;
+      })
   }
 
   computeOverallRating() {
