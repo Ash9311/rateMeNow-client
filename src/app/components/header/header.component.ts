@@ -37,6 +37,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/', 'my-profile'])
   }
 
+  signOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userdetails');
+    this.router.navigate(['/', 'app-signup'])
+  }
+
   private handleDocumentClick(event: MouseEvent): void {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.isprofileButtonClicked = false;

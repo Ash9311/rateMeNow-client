@@ -31,6 +31,7 @@ export class SignupComponent implements OnInit {
       localStorage.setItem("token", response.token);
 
       this.rootScopeService.loggedInUser = response?.userDetails;
+      localStorage.setItem("userdetails", JSON.stringify(response?.userDetails));
       this.router.navigate(['/', 'app-dashboard'])
     },
       error => {
