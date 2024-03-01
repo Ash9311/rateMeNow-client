@@ -21,15 +21,16 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.rootScopeService.isUserLoggedIn=false;
+    this.rootScopeService.isUserLoggedIn = false;
   }
 
   signUpClicked() {
+    this.rootScopeService.isLoading = true;
     this.rateMeNowService.signUp(this.firstName, this.lastName, this.email, this.password).subscribe(response => {
-      console.log(response);
+      this.rootScopeService.isLoading = false;
       localStorage.setItem("token", response.token);
-     
-      this.rootScopeService.loggedInUser=response?.userDetails;
+
+      this.rootScopeService.loggedInUser = response?.userDetails;
       this.router.navigate(['/', 'app-dashboard'])
     })
   }

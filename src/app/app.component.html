@@ -1,2 +1,8 @@
-<app-header></app-header>
+<div *ngIf="rootScopeService.isLoading" class="loader-overlay">
+    <img src="../assets/loader.svg" />
+</div>
+<div *ngIf="!rootScopeService.isLoading">
+    
+    <app-header></app-header>
+</div>
 <router-outlet></router-outlet>

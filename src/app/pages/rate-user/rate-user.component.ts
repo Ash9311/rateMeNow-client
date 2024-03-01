@@ -177,9 +177,11 @@ export class RateUserComponent implements OnInit {
       RatedBy: this.rootScopeService.loggedInUser.userId
     };
     const authToken = localStorage.getItem("token");
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
+    this.rootScopeService.isLoading = true;
     this.rateMeNowService.submitRating(this.userDetails.
       _id, payload, headers).subscribe(response => {
+        this.rootScopeService.isLoading = false;
         alert("rating submitted successfully")
         this.fetchUserRatingDetails();
 

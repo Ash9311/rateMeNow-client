@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class RootScopeService {
   isUserLoggedIn: boolean = false;
-  loggedInUser:any;
-  isMyProfile:boolean = false;
+  loggedInUser: any;
+  isMyProfile: boolean = false;
+  isLoading: boolean = false;
   constructor() { }
 }

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { Observable } from 'rxjs';
-import { LoaderService } from './loader.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class RateMeNowService {
   private apiUrl = 'https://rate-me-now-server.vercel.app/api/v1'
   //private apiUrl = 'http://localhost:4000/api/v1'
-  constructor(private http: HttpClient,private loaderService: LoaderService) { }
+  constructor(private http: HttpClient) { }
 
   signUp(firstName: string, lastName: string, username: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/user/signup`, { firstName, lastName, username, password })
