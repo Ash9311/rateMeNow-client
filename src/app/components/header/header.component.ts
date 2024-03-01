@@ -27,8 +27,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     document.removeEventListener('click', this.documentClickHandler);
   }
 
-  profilButtonClicked() {
+  profileButtonClicked() {
     this.isprofileButtonClicked = !this.isprofileButtonClicked;
+  }
+
+  myProfile() {
+    this.rootScopeService.isMyProfile = true;
+    //this.router.navigate(['/my-profile']);
+    this.router.navigate(['/', 'my-profile'])
   }
 
   private handleDocumentClick(event: MouseEvent): void {

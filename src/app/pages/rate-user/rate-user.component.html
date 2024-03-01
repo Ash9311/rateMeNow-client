@@ -22,28 +22,29 @@
                             <div class="text-base flex items-center">{{ratingCriteria[ind]}}:</div>
                             <div class="flex pt-1.5 ml-5">
                                 <div class="flex p-0.5" *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
-                                    <i class="fa fa-star" (click)="setRating(criterion, i + 1)"
-                                        [ngClass]="{'active': getRating(criterion) >= i+1 }"></i>
+                                    <i class="fa fa-star"
+                                        (click)="!rootScopeService.isMyProfile && setRating(criterion, i + 1)"
+                                        [ngClass]="{'active': getRating(criterion) >= i+1}"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button type="submit"
+                <button type="submit" [ngClass]="{'disabled': rootScopeService.isMyProfile}"
                     class="w-40 mt-4 text-center py-3 rounded bg-green-500 text-white hover:bg-green-dark focus:outline-none my-1"
-                    (click)="submitRating()">submit rating</button>
+                    (click)="!rootScopeService.isMyProfile && submitRating()">submit rating</button>
             </div>
 
         </div>
 
 
 
-        <div class="sm:min-h-[50vh] md:min-h-screen flex flex-col">
+        <div class="sm:min-h-[50vh] md:min-h-screen flex flex-col rating-chart-container">
             <p style="margin-top: 13%;"
                 class="flex justify-center text-sm font-medium text-gray-500 dark:text-gray-400">{{totalRaters||0}}
                 global ratings</p>
-            <div class="flex flex-col sm:min-w-[24.5rem] md:min-w-[37.5rem]">
-                <div class="flex items-center mt-4 justify-between">
+            <div class="flex flex-col xs:min-w-[24.5rem] sm:min-w-[24.5rem] md:min-w-[37.5rem] rating-chart">
+                <div class="flex items-center mt-4">
                     <a href="#"
                         class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Kindness</a>
                     <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">

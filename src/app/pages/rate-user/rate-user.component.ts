@@ -35,15 +35,6 @@ export class RateUserComponent implements OnInit {
     "SenseOfHumor": 0
   };
 
-  OverallKindess: number = 10;
-  OverallTrustWorthy: number = 0;
-  OverallProblemSolvingSkills: number = 0;
-  OverallProfessionalism: number = 0;
-  OverallAdaptability: number = 0;
-  OverallTeamwork: number = 0;
-  OverallCommunicationSkills: number = 0;
-  OverallSenseOfHumor: number = 0;
-  isFirstLoad = false;
   ratings: any;
   userRatingDetails: any;
   OverallRating: number = 0;
@@ -74,10 +65,16 @@ export class RateUserComponent implements OnInit {
     "SenseOfHumor": 0
   };
 
-  constructor(private rateMeNowService: RateMeNowService, private router: Router, private rootScopeService: RootScopeService) { }
+  constructor(private rateMeNowService: RateMeNowService, private router: Router, public rootScopeService: RootScopeService) { }
 
   ngOnInit(): void {
-    this.isFirstLoad = true;
+
+    if (this.rootScopeService.isMyProfile) {
+      let loggedInUserDetail = _.cloneDeep(this.rootScopeService.loggedInUser);
+      loggedInUserDetail["_id"] = loggedInUserDetail["userId"];
+      delete loggedInUserDetail["userId"];
+      this.userDetails = loggedInUserDetail;
+    }
     this.fetchUserRatingDetails();
 
   }
@@ -86,10 +83,10 @@ export class RateUserComponent implements OnInit {
     const authToken = localStorage.getItem("token");
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
     this.rateMeNowService.getUserRatingDetails(this.userDetails._id, headers).subscribe(response => {
-      this.userRatingDetails = response?.account?.rating;
+      this.userRatingDetails = response?.account[0]?.rating;
       this.getAvgCriteria();
       this.computeCriteriaMetrics();
-      this.isFirstLoad = false;
+
     })
   }
 
@@ -190,7 +187,7 @@ export class RateUserComponent implements OnInit {
 
   }
   ngOnDestroy() {
-    this.isFirstLoad = false;
+    this.rootScopeService.isMyProfile = false;
   }
 
 

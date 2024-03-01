@@ -17,8 +17,23 @@
 
 .active {
     color: #ffcd07;
-  }
+}
 
-  .hovered {
+.hovered {
     color: #ffcd07;
-  }
+}
+
+@media (min-width: 340px) and (max-width:750px) {
+
+    .rating-chart-container {
+
+        width: 96%;
+        margin-bottom: 4%;
+        /* Adjust as needed */
+    }
+}
+
+.disabled {
+    background-color: #ccc; /* Gray color */
+    cursor: not-allowed; /* Change cursor to indicate button is disabled */
+}
