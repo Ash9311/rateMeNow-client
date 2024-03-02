@@ -150,7 +150,7 @@ export class RateUserComponent implements OnInit {
     _.forEach(overallRatingsList, x =>
       sumOverallRatings += x.OverallRating
     )
-    this.totalRaters = overallRatingsList.length;
+    this.totalRaters = overallRatingsList?.length || 0;
     this.avgOverallRating = sumOverallRatings / this.totalRaters;
     this.avgOverallRatingstar = Math.round(this.avgOverallRating)
     this.avgOverallRating = +this.avgOverallRating.toFixed(2);
