@@ -16,6 +16,8 @@ export class SigninComponent implements OnInit {
   constructor(private rateMeNowService: RateMeNowService, private router: Router, private rootScopeService: RootScopeService) { }
 
   ngOnInit(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userdetails');
     this.rootScopeService.isUserLoggedIn = false;
   }
 
@@ -26,7 +28,7 @@ export class SigninComponent implements OnInit {
       localStorage.setItem("token", response.token);
       this.rootScopeService.isUserLoggedIn = true;
       this.rootScopeService.loggedInUser = response?.userDetails;
-      localStorage.setItem("userDetails", JSON.stringify(response?.userDetails));
+      localStorage.setItem("userdetails", JSON.stringify(response?.userDetails));
       this.router.navigate(['/', 'app-dashboard'])
 
 

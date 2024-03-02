@@ -21,7 +21,11 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userdetails');
     this.rootScopeService.isUserLoggedIn = false;
+    this.rootScopeService.isMyProfile = false;
+    this.rootScopeService.loggedInUser = [];
   }
 
   signUpClicked() {
