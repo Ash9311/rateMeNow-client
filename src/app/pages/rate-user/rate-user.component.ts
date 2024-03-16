@@ -80,7 +80,7 @@ export class RateUserComponent implements OnInit {
   }
 
   fetchUserRatingDetails() {
-    const authToken = localStorage.getItem("token");
+    const authToken = localStorage.getItem("rmn-token");
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
     this.rootScopeService.isLoading = true;
     this.rateMeNowService.getUserRatingDetails(this.userDetails._id, headers).subscribe(response => {
@@ -181,7 +181,7 @@ export class RateUserComponent implements OnInit {
       OverallRating: this.OverallRating,
       RatedBy: this.rootScopeService.loggedInUser.userId
     };
-    const authToken = localStorage.getItem("token");
+    const authToken = localStorage.getItem("rmn-token");
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
     this.rootScopeService.isLoading = true;
     this.rateMeNowService.submitRating(this.userDetails.

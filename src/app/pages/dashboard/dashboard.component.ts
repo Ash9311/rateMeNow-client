@@ -19,15 +19,21 @@ export class DashboardComponent implements OnInit {
   constructor(private rateMeNowService: RateMeNowService, private router: Router, public rootScopeService: RootScopeService) { }
 
   ngOnInit(): void {
-    this.rootScopeService.loggedInUser = JSON.parse(localStorage.getItem("userdetails") || '{}');
-    this.rootScopeService.isUserLoggedIn = true;
-    this.getAllUsers();
+    this.rootScopeService.loggedInUser = JSON.parse(localStorage.getItem("rmn-userdetails") || '{}');
+    if (!this.rootScopeService.loggedInUser?.userId) {
+      this.router.navigate(['/', 'app-signup'])
+    }
+    else {
+      this.rootScopeService.isUserLoggedIn = true;
+      this.getAllUsers();
+    }
 
   }
 
   search() {
 
   }
+
 
   rateClicked(event: MouseEvent, userdata: any) {
     this.isRateclicked = true;
@@ -40,7 +46,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllUsers() {
-    const authToken = localStorage.getItem("token");
+    const authToken = localStorage.getItem("rmn-token");
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
     this.rateMeNowService.getBulkUsers(headers, this.filter.toLowerCase()).subscribe(response => {
       this.users = response?.users;
@@ -49,7 +55,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllAccountDetails() {
-    const authToken = localStorage.getItem("token");
+    const authToken = localStorage.getItem("rmn-token");
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
     this.rateMeNowService.getUserRatingDetails("", headers).subscribe(response => {
 

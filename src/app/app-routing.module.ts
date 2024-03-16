@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: 'app-rate-user', component: RateUserComponent },
   { path: 'app-dashboard', component: DashboardComponent },
   { path: 'my-profile', component: MyProfileComponent },
-  { path: '', redirectTo: '/app-signup', pathMatch: 'full' }, // redirect to `first-component`
+  { path: '', redirectTo: '/app-signup', pathMatch: 'full' },
+  { path: '**', redirectTo: '/app-signup', pathMatch: 'full' },
 ];
 
 @NgModule({

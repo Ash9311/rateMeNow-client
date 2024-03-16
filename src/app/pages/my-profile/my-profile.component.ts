@@ -14,7 +14,13 @@ export class MyProfileComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.rootScopeService.isMyProfile = true;
+    this.rootScopeService.loggedInUser = JSON.parse(localStorage.getItem("rmn-userdetails") || '{}');
+    if (!this.rootScopeService.loggedInUser?.userId) {
+      this.router.navigate(['/', 'app-signup'])
+    }
+    else {
+      this.rootScopeService.isMyProfile = true;
+    }
   }
 
   backClickedfromRate() {

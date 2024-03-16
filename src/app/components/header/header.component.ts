@@ -38,8 +38,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   signOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userdetails');
+    localStorage.removeItem('rmn-token');
+    localStorage.removeItem('rmn-userdetails');
     this.rootScopeService.isMyProfile = false;
     this.rootScopeService.isUserLoggedIn = false;
     this.rootScopeService.loggedInUser = [];

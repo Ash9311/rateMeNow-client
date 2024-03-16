@@ -21,21 +21,26 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userdetails');
-    this.rootScopeService.isUserLoggedIn = false;
-    this.rootScopeService.isMyProfile = false;
-    this.rootScopeService.loggedInUser = [];
+    if (localStorage.getItem('rmn-userdetails')) {
+      this.router.navigate(['/', 'app-dashboard'])
+    }
+    else {
+      localStorage.removeItem('rmn-token');
+      localStorage.removeItem('rmn-userdetails');
+      this.rootScopeService.isUserLoggedIn = false;
+      this.rootScopeService.isMyProfile = false;
+      this.rootScopeService.loggedInUser = [];
+    }
   }
 
   signUpClicked() {
     this.rootScopeService.isLoading = true;
     this.rateMeNowService.signUp(this.firstName, this.lastName, this.email, this.password).subscribe(response => {
       this.rootScopeService.isLoading = false;
-      localStorage.setItem("token", response.token);
+      localStorage.setItem("rmn-token", response.token);
 
       this.rootScopeService.loggedInUser = response?.userDetails;
-      localStorage.setItem("userdetails", JSON.stringify(response?.userDetails));
+      localStorage.setItem("rmn-userdetails", JSON.stringify(response?.userDetails));
       this.router.navigate(['/', 'app-dashboard'])
     },
       error => {
