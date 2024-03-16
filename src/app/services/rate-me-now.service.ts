@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RateMeNowService {
-  private apiUrl = 'https://rate-me-now-server.vercel.app/api/v1'
-  //private apiUrl = 'http://localhost:4000/api/v1'
+  // private apiUrl = 'https://rate-me-now-server.vercel.app/api/v1'
+  private apiUrl = 'http://localhost:4000/api/v1'
   constructor(private http: HttpClient) { }
 
   signUp(firstName: string, lastName: string, username: string, password: string): Observable<any> {
