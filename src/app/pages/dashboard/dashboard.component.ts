@@ -30,9 +30,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  search() {
 
-  }
 
 
   rateClicked(event: MouseEvent, userdata: any) {
@@ -48,9 +46,10 @@ export class DashboardComponent implements OnInit {
   getAllUsers() {
     const authToken = localStorage.getItem("rmn-token");
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
+    if (this.filter == "") this.rootScopeService.isLoading = true;
     this.rateMeNowService.getBulkUsers(headers, this.filter.toLowerCase()).subscribe(response => {
       this.users = response?.users;
-
+      this.rootScopeService.bulkUsersCache = this.users;
       this.getAllAccountDetails();
     });
   }
@@ -60,6 +59,7 @@ export class DashboardComponent implements OnInit {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
     this.rateMeNowService.getUserRatingDetails("", headers).subscribe(response => {
       this.rootScopeService.usersDetailsCache = response.account;
+      this.rootScopeService.isLoading = false;
       this.accountDetails = response.account.map((account: any) => ({
         _id: account.userId,
         OverallRating: (account.rating.reduce((sum: any, rating: any) => sum + rating.OverallRating, 0) / account.rating.length).toFixed(2),

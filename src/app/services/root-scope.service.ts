@@ -9,5 +9,6 @@ export class RootScopeService {
   isMyProfile: boolean = false;
   isLoading: boolean = false;
   usersDetailsCache: any = [];
+  bulkUsersCache: any = [];
   constructor() { }
 }
