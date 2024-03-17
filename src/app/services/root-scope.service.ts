@@ -8,5 +8,6 @@ export class RootScopeService {
   loggedInUser: any;
   isMyProfile: boolean = false;
   isLoading: boolean = false;
+  usersDetailsCache: any = [];
   constructor() { }
 }

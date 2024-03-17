@@ -80,19 +80,14 @@ export class RateUserComponent implements OnInit {
   }
 
   fetchUserRatingDetails() {
-    const authToken = localStorage.getItem("rmn-token");
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
-    this.rootScopeService.isLoading = true;
-    this.rateMeNowService.getUserRatingDetails(this.userDetails._id, headers).subscribe(response => {
-      this.userRatingDetails = response?.account[0]?.rating;
+    let cachedUser = this.rootScopeService.usersDetailsCache?.find((x: any) => x.userId == this.userDetails._id);
+    if (!!cachedUser) {
+      this.userRatingDetails = cachedUser?.rating;
       this.getAvgCriteria();
       this.computeCriteriaMetrics();
-      this.rootScopeService.isLoading = false;
+      return;
+    }
 
-    },
-      error => {
-        this.rootScopeService.isLoading = false;
-      })
   }
 
   computeOverallRating() {
@@ -132,8 +127,11 @@ export class RateUserComponent implements OnInit {
       criteriaAvg.SenseOfHumor += x.SenseOfHumor;
 
     }
-    _.forEach(criteriaAvg, (value, key) =>
-      this.currentRatingPtg[key] = ((value / this.totalRaters) * 20).toFixed(0)
+    _.forEach(criteriaAvg, (value, key) => {
+      if (this.totalRaters) {
+        this.currentRatingPtg[key] = ((value / this.totalRaters) * 20).toFixed(0)
+      }
+    }
     )
     // this.criteriaAvg = _.map(this.criteriaAvg, (value, key) => {  problem here is map will split out each indexes
     //   return {
@@ -188,8 +186,16 @@ export class RateUserComponent implements OnInit {
       _id, payload, headers).subscribe(response => {
         this.rootScopeService.isLoading = false;
         alert("rating submitted successfully")
-        this.fetchUserRatingDetails();
-
+        this.rootScopeService.isLoading = true;
+        this.rateMeNowService.getUserRatingDetails(this.userDetails._id, headers).subscribe(response => {
+          this.userRatingDetails = response?.account[0]?.rating;
+          this.getAvgCriteria();
+          this.computeCriteriaMetrics();
+          this.rootScopeService.isLoading = false;
+        },
+          error => {
+            this.rootScopeService.isLoading = false;
+          })
       },
         error => {
           this.rootScopeService.isLoading = false;

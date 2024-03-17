@@ -50,6 +50,7 @@ export class DashboardComponent implements OnInit {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
     this.rateMeNowService.getBulkUsers(headers, this.filter.toLowerCase()).subscribe(response => {
       this.users = response?.users;
+
       this.getAllAccountDetails();
     });
   }
@@ -58,7 +59,7 @@ export class DashboardComponent implements OnInit {
     const authToken = localStorage.getItem("rmn-token");
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`)
     this.rateMeNowService.getUserRatingDetails("", headers).subscribe(response => {
-
+      this.rootScopeService.usersDetailsCache = response.account;
       this.accountDetails = response.account.map((account: any) => ({
         _id: account.userId,
         OverallRating: (account.rating.reduce((sum: any, rating: any) => sum + rating.OverallRating, 0) / account.rating.length).toFixed(2),
