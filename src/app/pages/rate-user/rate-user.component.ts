@@ -46,10 +46,10 @@ export class RateUserComponent implements OnInit {
   @Output() backbuttonClicked = new EventEmitter<any>();
 
   ratingCriteria: any = ["Kindness",
-    "trust worthy",
-    "Problem solvings skills",
-    "Professionalism",
-    "Adaptability",
+    "Trust worthy",
+    "Intelligence",
+    "Patience",
+    "Calmness",
     "Teamwork",
     "Communication skills",
     "Sense of humor"];

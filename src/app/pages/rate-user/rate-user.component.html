@@ -45,8 +45,8 @@
                 global ratings</p>
             <div class="flex flex-col xs:min-w-[24.5rem] sm:min-w-[24.5rem] md:min-w-[37.5rem] rating-chart">
                 <div class="flex items-center mt-4">
-                    <a href="#"
-                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Kindness</a>
+                    <span href="#"
+                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Kindness</span>
                     <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
                         <div class="h-5 bg-yellow-300 rounded" [style.width.%]="currentRatingPtg?.Kindness||0"></div>
                     </div>
@@ -54,8 +54,8 @@
                         class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.Kindness||0}}%</span>
                 </div>
                 <div class="flex items-center mt-4">
-                    <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Trust
-                        worthy</a>
+                    <span href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Trust
+                        worthy</span>
                     <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
                         <div class="h-5 bg-yellow-300 rounded"
                             [ngStyle]="{ 'width.%': currentRatingPtg?.TrustWorthy||0 }">
@@ -65,10 +65,8 @@
                         class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.TrustWorthy||0}}%</span>
                 </div>
                 <div class="flex items-center mt-4">
-                    <a href="#"
-                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Problem
-                        solvings
-                        skills</a>
+                    <span href="#"
+                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Intelligence</span>
                     <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
                         <div class="h-5 bg-yellow-300 rounded"
                             [style.width.%]="currentRatingPtg?.ProblemSolvingSkills||0">
@@ -78,8 +76,8 @@
                         class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.ProblemSolvingSkills||0}}%</span>
                 </div>
                 <div class="flex items-center mt-4">
-                    <a href="#"
-                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Professionalism</a>
+                    <span href="#"
+                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Patience</span>
                     <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
                         <div class="h-5 bg-yellow-300 rounded" [style.width.%]="currentRatingPtg?.Professionalism||0">
                         </div>
@@ -88,8 +86,8 @@
                         class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.Professionalism||0}}%</span>
                 </div>
                 <div class="flex items-center mt-4">
-                    <a href="#"
-                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Adaptability</a>
+                    <span href="#"
+                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Calmness</span>
                     <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
                         <div class="h-5 bg-yellow-300 rounded" [style.width.%]="currentRatingPtg?.Adaptability||0">
                         </div>
@@ -98,8 +96,8 @@
                         class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.Adaptability||0}}%</span>
                 </div>
                 <div class="flex items-center mt-4">
-                    <a href="#"
-                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Teamwork</a>
+                    <span href="#"
+                        class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Teamwork</span>
                     <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
                         <div class="h-5 bg-yellow-300 rounded" [style.width.%]="currentRatingPtg?.Teamwork||0"></div>
                     </div>
@@ -107,9 +105,9 @@
                         class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.Teamwork||0}}%</span>
                 </div>
                 <div class="flex items-center mt-4">
-                    <a href="#"
+                    <span href="#"
                         class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Communication
-                        skills</a>
+                        skills</span>
                     <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
                         <div class="h-5 bg-yellow-300 rounded"
                             [style.width.%]="currentRatingPtg?.CommunicationSkills||0">
@@ -119,9 +117,9 @@
                         class="text-sm font-medium text-gray-500 dark:text-gray-400">{{currentRatingPtg?.CommunicationSkills||0}}%</span>
                 </div>
                 <div class="flex items-center mt-4">
-                    <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Sense
+                    <span href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline w-60">Sense
                         of
-                        humor</a>
+                        humor</span>
                     <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
                         <div class="h-5 bg-yellow-300 rounded" [style.width.%]="currentRatingPtg?.SenseOfHumor||0">
                         </div>
